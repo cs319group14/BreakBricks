@@ -39,5 +39,4 @@ public class GameKit {
     Rectangle getRect() {
         return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
     }
-
 }
