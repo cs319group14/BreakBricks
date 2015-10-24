@@ -1,2 +1,4 @@
-public class Paddle {
+public class Paddle extends GameKit implements BreakBricksCommons {
+
+
 }
