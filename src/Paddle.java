@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Paddle extends GameKit implements BreakBricksCommons {
-    String paddle = "/Users/Kaan/IdeaProjects/Break Bricks/paddle.png";
+    String paddle = ""; //TODO
 
     int dx;
 
