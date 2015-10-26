@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Paddle extends GameKit implements BreakBricksCommons {
-    String paddle = ""; // TODO
+    String paddle = "/Users/Kaan/IdeaProjects/Break Bricks/paddle.png";
+
     int dx;
 
     public Paddle() {
@@ -51,5 +52,5 @@ public class Paddle extends GameKit implements BreakBricksCommons {
             dx = 0;
         }
     }
-
+    
 }
