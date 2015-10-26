@@ -4,7 +4,6 @@ public class Ball extends GameKit implements BreakBricksCommons {
 
     private int xDirection;
     private int yDirection;
-
     protected String ballImageDirectory = ""; // TODO
 
     public Ball() {
