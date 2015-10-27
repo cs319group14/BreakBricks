@@ -49,7 +49,11 @@ public class Board extends JPanel implements BreakBricksCommons {
 
     // TODO
     public void pauseGame(){
-
+        timer.cancel();
+    }
+    // Not tried yet may cause errors
+    public void resumeGame() {
+        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
     }
 
     public void paint(Graphics g) {
