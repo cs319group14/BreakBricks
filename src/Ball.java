@@ -17,9 +17,8 @@ public class Ball extends GameKit implements BreakBricksCommons {
         yDirection = -1;
 
         URL url = new URL(ballImageDirectory);
-        //Image image = ImageIO.read(url);
         ImageIcon ii = new ImageIcon(ImageIO.read(url));
-       image = ii.getImage();
+        image = ii.getImage();
 
         width = image.getWidth(null);
         height = image.getHeight(null);

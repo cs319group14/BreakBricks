@@ -1,15 +1,21 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Paddle extends GameKit implements BreakBricksCommons {
     String paddle = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_paddle.png"; //TODO
 
     int dx;
 
-    public Paddle() {
+    public Paddle() throws IOException {
 
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(paddle));
+        URL url = new URL(paddle);
+        ImageIcon ii = new ImageIcon(ImageIO.read(url));
         image = ii.getImage();
+
         width = image.getWidth(null);
         height = image.getHeight(null);
         resetState();
