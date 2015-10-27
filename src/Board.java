@@ -1,5 +1,11 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
@@ -8,7 +14,6 @@ import java.util.TimerTask;
 
 public class Board extends JPanel implements BreakBricksCommons {
 
-    Image ii;
     Timer timer;
     String message = "Game Over";
     Ball ball;
@@ -25,6 +30,11 @@ public class Board extends JPanel implements BreakBricksCommons {
         setDoubleBuffered(true);
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+    }
+
+    public void addNotify() {
+        super.addNotify();
+        gameInit();
     }
 
     public void gameInit() {

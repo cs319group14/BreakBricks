@@ -4,15 +4,15 @@ public class Ball extends GameKit implements BreakBricksCommons {
 
     private int xDirection;
     private int yDirection;
-    protected String ballImageDirectory = ""; // TODO
+    protected String ballImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/asset_ball.png"; // TODO
 
     public Ball() {
 
         xDirection = 1;
         yDirection = -1;
 
-        ImageIcon ii = new ImageIcon(ballImageDirectory);
-        image = ii.getImage();
+       ImageIcon ii = new ImageIcon(this.getClass().getResource(ballImageDirectory));
+       image = ii.getImage();
 
         width = image.getWidth(null);
         height = image.getHeight(null);

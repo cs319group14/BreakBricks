@@ -2,13 +2,13 @@ import javax.swing.*;
 
 public class Brick extends GameKit implements BreakBricksCommons {
 
-    String brickImageDirectory = "";
+    String brickImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_brick.png";
     boolean destroyed;
 
     public Brick(int x, int y) {
         this.x = x;
         this.y = y;
-        ImageIcon ii = new ImageIcon(brickImageDirectory);
+        ImageIcon ii = new ImageIcon(this.getClass().getResource(brickImageDirectory));
         image = ii.getImage();
         width = image.getWidth(null);
         height = image.getHeight(null);

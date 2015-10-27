@@ -2,13 +2,13 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Paddle extends GameKit implements BreakBricksCommons {
-    String paddle = ""; //TODO
+    String paddle = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_paddle.png"; //TODO
 
     int dx;
 
     public Paddle() {
 
-        ImageIcon ii = new ImageIcon(paddle);
+        ImageIcon ii = new ImageIcon(this.getClass().getResource(paddle));
         image = ii.getImage();
         width = image.getWidth(null);
         height = image.getHeight(null);

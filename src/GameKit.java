@@ -1,4 +1,5 @@
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Rectangle;
 
 public class GameKit {
 
