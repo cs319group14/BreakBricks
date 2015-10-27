@@ -1,4 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import java.awt.*;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Ball extends GameKit implements BreakBricksCommons {
 
@@ -6,12 +11,14 @@ public class Ball extends GameKit implements BreakBricksCommons {
     private int yDirection;
     protected String ballImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/asset_ball.png"; // TODO
 
-    public Ball() {
+    public Ball() throws IOException {
 
         xDirection = 1;
         yDirection = -1;
 
-       ImageIcon ii = new ImageIcon(this.getClass().getResource(ballImageDirectory));
+        URL url = new URL(ballImageDirectory);
+        //Image image = ImageIO.read(url);
+        ImageIcon ii = new ImageIcon(ImageIO.read(url));
        image = ii.getImage();
 
         width = image.getWidth(null);

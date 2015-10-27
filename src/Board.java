@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,6 +16,7 @@ import java.util.TimerTask;
 public class Board extends JPanel implements BreakBricksCommons {
 
     Timer timer;
+    boolean paused=false;
     String message = "Game Over";
     Ball ball;
     Paddle paddle;
@@ -34,10 +36,14 @@ public class Board extends JPanel implements BreakBricksCommons {
 
     public void addNotify() {
         super.addNotify();
-        gameInit();
+        try {
+            gameInit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void gameInit() {
+    public void gameInit() throws IOException {
 
         ball = new Ball();
         paddle = new Paddle();
@@ -60,10 +66,12 @@ public class Board extends JPanel implements BreakBricksCommons {
     // TODO
     public void pauseGame(){
         timer.cancel();
+        paused=true;
     }
     // Not tried yet may cause errors
     public void resumeGame() {
         timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+        paused=false;
     }
 
     public void paint(Graphics g) {
