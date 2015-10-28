@@ -1,34 +1,17 @@
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class HighScore extends JPanel implements BreakBricksCommons {
 
-    int[] hS;//sample array
-    String output;
+    ArrayList hS;//sample array
     JTextField myL;
 
-    public HighScore() {
-        output = "";
-        hS = new int[10];
-        for (int i = 0; i < 10; i++) {
-            hS[i] = i;
-        }
-        convert();
-
-        myL = new JTextField(output);
-        System.out.println(myL.getText());
-        this.add(myL);
-        myL.setVisible(true);
-
-
-        setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
-        setIgnoreRepaint(true);
-        setVisible(true);
-        repaint();
+    public HighScore(){
     }
 
-    public void convert() {
-        for (int i = 0; i < 10; i++) {
-            output = output + hS[i] + " /n";
-        }
+    public void refreshHS() {
+
+        hS=db.getAllScores();
+
     }
 }

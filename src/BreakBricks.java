@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class BreakBricks extends JFrame implements ActionListener {
 
@@ -61,7 +62,11 @@ public class BreakBricks extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == play) {
             remove(mLabel);
-            myB = new Board();
+            try {
+                myB = new Board();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             myB.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
             add(myB);
             myB.setVisible(true);

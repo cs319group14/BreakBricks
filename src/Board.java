@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -22,8 +21,11 @@ public class Board extends JPanel implements BreakBricksCommons {
     Paddle paddle;
     Brick bricks[];
     boolean ingame = true;
+    int currentScore;
 
-    public Board() {
+    public Board() throws IOException {
+
+        currentScore=0;
 
         addKeyListener(new TAdapter());
         setFocusable(true);
@@ -36,8 +38,10 @@ public class Board extends JPanel implements BreakBricksCommons {
 
     public void addNotify() {
         super.addNotify();
+        System.out.print("Notify block.");
         try {
             gameInit();
+            System.out.print("Game initialized.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,6 +103,8 @@ public class Board extends JPanel implements BreakBricksCommons {
             g.drawString(message,
                     (BreakBricksCommons.WIDTH - metr.stringWidth(message)) / 2,
                     BreakBricksCommons.WIDTH / 2);
+
+            db.storeScore(currentScore);
         }
 
 
@@ -116,9 +122,11 @@ public class Board extends JPanel implements BreakBricksCommons {
         for (int i = 0, j = 0; i < 30; i++) {
             if (bricks[i].isDestroyed()) {
                 j++;
+                currentScore++;
             }
             if (j == 30) {
                 message = "Victory";
+                db.storeScore(currentScore);
                 stopGame();
             }
         }
@@ -213,8 +221,8 @@ public class Board extends JPanel implements BreakBricksCommons {
 
         public void run() {
 
-            ball.move();
             paddle.move();
+            ball.move();
             checkCollision();
             repaint();
 

@@ -4,4 +4,6 @@ public interface BreakBricksCommons {
     int BOTTOM = 490;
     int PADDLE_RIGHT = 250;
     int BALL_RIGHT = 280;
+    //TODO
+    dbManager db= new dbManager("");
 }

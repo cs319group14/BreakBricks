@@ -7,6 +7,7 @@ public class Brick extends GameKit implements BreakBricksCommons {
 
     String brickImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_brick.png";
     boolean destroyed;
+    PowerUp p;
 
     public Brick(int x, int y) throws IOException {
         this.x = x;
@@ -18,6 +19,9 @@ public class Brick extends GameKit implements BreakBricksCommons {
         width = image.getWidth(null);
         height = image.getHeight(null);
         destroyed = false;
+
+        //TODO
+        p=new PowerUp();//Generate a random power up
     }
 
     public boolean isDestroyed() {
@@ -26,5 +30,10 @@ public class Brick extends GameKit implements BreakBricksCommons {
 
     public void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
+    }
+
+    public int getPowerUp()
+    {
+        return p.getId();
     }
 }
