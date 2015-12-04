@@ -47,7 +47,7 @@ public class Ball extends GameKit implements BreakBricksCommons {
     public void resetState()
     {
         x = 230;
-        y = 55;
+        y = 450;
     }
 
     public void setxDirection(int xDirection) {

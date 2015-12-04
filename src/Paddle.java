@@ -23,7 +23,7 @@ public class Paddle extends GameKit implements BreakBricksCommons {
 
     public void resetState() {
         x = 200;
-        y = 360;
+        y = 560;
     }
 
     public void move() {

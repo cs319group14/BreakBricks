@@ -56,7 +56,7 @@ public class Board extends JPanel implements BreakBricksCommons {
         int k = 0;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 6; j++) {
-                bricks[k] = new Brick(j * 40 + 30, i * 10 + 50);
+                bricks[k] = new Brick(j * 70 + 40, i * 25 + 50);
                 k++;
             }
         }
@@ -220,10 +220,9 @@ public class Board extends JPanel implements BreakBricksCommons {
     class ScheduleTask extends TimerTask {
 
         public void run() {
-
-            paddle.move();
+          //  paddle.move();
             ball.move();
-            checkCollision();
+            //checkCollision();
             repaint();
 
         }
