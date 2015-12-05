@@ -12,21 +12,21 @@ public class Board extends JPanel implements BreakBricksCommons {
     Timer timer;
     boolean paused=false;
     String message = "Game Over";
-    Ball ball = new Ball();
-    Paddle paddle = new Paddle();
+    Ball ball;
+    Paddle paddle;
     Brick bricks[];
     boolean ingame = true;
     int currentScore;
 
     public Board() throws IOException {
-
         currentScore=0;
+        paddle = new Paddle();
+        ball = new Ball();
         bricks = new Brick[30];
         setDoubleBuffered(true);
         timer = new Timer();
       //addKeyListener(new TAdapter());
         addMouseListener(new MAdapter());
-        timer.scheduleAtFixedRate(new ScheduleTask(), 2000, 6);
         setFocusable(true);
         requestFocusInWindow();
 
@@ -45,6 +45,7 @@ public class Board extends JPanel implements BreakBricksCommons {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 6);
     }
 
     public void gameInit() throws IOException {
