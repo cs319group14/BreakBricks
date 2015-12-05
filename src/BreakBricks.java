@@ -68,8 +68,11 @@ public class BreakBricks extends JFrame implements ActionListener {
                 e1.printStackTrace();
             }
             myB.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
+            myB.addKeyListener(new ControlAdapter(myB.getPaddle()));
             add(myB);
             myB.setVisible(true);
+            myB.setFocusable(true);
+            myB.requestFocus();
             myB.repaint();
             repaint();
         } else if (e.getSource() == highS) {

@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,18 +35,20 @@ public class Paddle extends GameKit implements BreakBricksCommons {
             x = BreakBricksCommons.PADDLE_RIGHT;
     }
 
-    public void keyPressed(KeyEvent e) {
+    public void mouseClicked(MouseEvent e) {
 
+    }
+
+    public void keyPressed(KeyEvent e) {
+        System.out.println("key pressed paddle");
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            dx = -4;
-            System.out.println("heey left");
+            dx = -2;
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            dx = 4;
-            System.out.println("heey right");
+            dx = 2;
         }
     }
 

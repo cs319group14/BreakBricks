@@ -1,7 +1,6 @@
 import javax.swing.JPanel;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,8 +12,8 @@ public class Board extends JPanel implements BreakBricksCommons {
     Timer timer;
     boolean paused=false;
     String message = "Game Over";
-    Ball ball;
-    Paddle paddle;
+    Ball ball = new Ball();
+    Paddle paddle = new Paddle();
     Brick bricks[];
     boolean ingame = true;
     int currentScore;
@@ -22,14 +21,19 @@ public class Board extends JPanel implements BreakBricksCommons {
     public Board() throws IOException {
 
         currentScore=0;
-
-        addKeyListener(new TAdapter());
-        setFocusable(true);
-
         bricks = new Brick[30];
         setDoubleBuffered(true);
         timer = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+      //addKeyListener(new TAdapter());
+        addMouseListener(new MAdapter());
+        timer.scheduleAtFixedRate(new ScheduleTask(), 2000, 6);
+        setFocusable(true);
+        requestFocusInWindow();
+
+    }
+
+    public Paddle getPaddle(){
+        return this.paddle;
     }
 
     public void addNotify() {
@@ -44,10 +48,6 @@ public class Board extends JPanel implements BreakBricksCommons {
     }
 
     public void gameInit() throws IOException {
-
-        ball = new Ball();
-        paddle = new Paddle();
-
 
         int k = 0;
         for (int i = 0; i < 5; i++) {
@@ -113,8 +113,8 @@ public class Board extends JPanel implements BreakBricksCommons {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         Graphics2D g2d = (Graphics2D) g;
+
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -134,7 +134,6 @@ public class Board extends JPanel implements BreakBricksCommons {
     }
 
     private void drawObjects(Graphics2D g2d) {
-
         g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(),
                 ball.getWidth(), ball.getHeight(), this);
         g2d.drawImage(paddle.getImage(), paddle.getX(), paddle.getY(),
@@ -253,13 +252,30 @@ public class Board extends JPanel implements BreakBricksCommons {
     //* Inner Classes
     //**********************************************************
     private class TAdapter extends KeyAdapter {
+        public TAdapter(){
+            System.out.println("Adapter Created");
+        }
 
         public void keyReleased(KeyEvent e) {
+            super.keyReleased(e);
+            System.out.println("Key released");
             paddle.keyReleased(e);
         }
 
         public void keyPressed(KeyEvent e) {
+            super.keyPressed(e);
+            System.out.println("Key pressed");
             paddle.keyPressed(e);
+        }
+    }
+
+    private class MAdapter extends MouseAdapter {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            System.out.println("clicked");
+            paddle.mouseClicked(e);
         }
     }
 
@@ -271,10 +287,12 @@ public class Board extends JPanel implements BreakBricksCommons {
         public void run() {
             if (ball != null)
                  ball.move();
-            if(paddle != null)
+            if(paddle != null) {
                 paddle.move();
+            }
             else
                 System.out.println("paddle null fuck");
+
             checkCollision();
 
             repaint();
