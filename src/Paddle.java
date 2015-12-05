@@ -8,7 +8,7 @@ import java.net.URL;
 public class Paddle extends GameKit implements BreakBricksCommons {
     String paddle = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_paddle.png"; //TODO
 
-    int dx;
+    int dx = 0;
 
     public Paddle() throws IOException {
 
@@ -39,11 +39,13 @@ public class Paddle extends GameKit implements BreakBricksCommons {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            dx = -2;
+            dx = -4;
+            System.out.println("heey left");
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            dx = 2;
+            dx = 4;
+            System.out.println("heey right");
         }
     }
 

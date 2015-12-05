@@ -1,15 +1,11 @@
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.Graphics;
 
 
 public class Board extends JPanel implements BreakBricksCommons {
@@ -74,10 +70,10 @@ public class Board extends JPanel implements BreakBricksCommons {
     }
     // Not tried yet may cause errors
     public void resumeGame() {
-        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 10);
+        timer.scheduleAtFixedRate(new ScheduleTask(), 500, 10);
         paused=false;
     }
-
+/*
     public void paint(Graphics g) {
         super.paint(g);
 
@@ -112,15 +108,66 @@ public class Board extends JPanel implements BreakBricksCommons {
         g.dispose();
     }
 
+*/
 
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
+
+        if (ingame) {
+
+            drawObjects(g2d);
+        } else {
+
+            gameFinished(g2d);
+        }
+
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+    private void drawObjects(Graphics2D g2d) {
+
+        g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(),
+                ball.getWidth(), ball.getHeight(), this);
+        g2d.drawImage(paddle.getImage(), paddle.getX(), paddle.getY(),
+                paddle.getWidth(), paddle.getHeight(), this);
+
+        for (int i = 0; i < 30; i++) {
+            if (!bricks[i].isDestroyed()) {
+                g2d.drawImage(bricks[i].getImage(), bricks[i].getX(),
+                        bricks[i].getY(), bricks[i].getWidth(),
+                        bricks[i].getHeight(), this);
+            }
+        }
+    }
+
+    private void gameFinished(Graphics2D g2d) {
+
+        Font font = new Font("Verdana", Font.BOLD, 18);
+        FontMetrics metr = this.getFontMetrics(font);
+
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(font);
+        g2d.drawString(message,
+                (BreakBricksCommons.WIDTH - metr.stringWidth(message)) / 2,
+                BreakBricksCommons.WIDTH / 2);
+    }
     public void checkCollision() {
 
-        if (ball.getRect().getMaxY() > BreakBricksCommons.BOTTOM) {
+        if (ball != null && ball.getRect().getMaxY() > BreakBricksCommons.BOTTOM) {
             stopGame();
         }
 
         for (int i = 0, j = 0; i < 30; i++) {
-            if (bricks[i].isDestroyed()) {
+            if (bricks[i] != null && bricks[i].isDestroyed()) {
                 j++;
                 currentScore++;
             }
@@ -131,7 +178,7 @@ public class Board extends JPanel implements BreakBricksCommons {
             }
         }
 
-        if ((ball.getRect()).intersects(paddle.getRect())) {
+        if (ball != null && paddle != null && (ball.getRect()).intersects(paddle.getRect())) {
 
             int paddleLPos = (int) paddle.getRect().getMinX();
             int ballLPos = (int) ball.getRect().getMinX();
@@ -169,7 +216,7 @@ public class Board extends JPanel implements BreakBricksCommons {
 
 
         for (int i = 0; i < 30; i++) {
-            if ((ball.getRect()).intersects(bricks[i].getRect())) {
+            if (ball != null && bricks[i] != null && (ball.getRect()).intersects(bricks[i].getRect())) {
 
                 int ballLeft = (int) ball.getRect().getMinX();
                 int ballHeight = (int) ball.getRect().getHeight();
@@ -219,10 +266,17 @@ public class Board extends JPanel implements BreakBricksCommons {
 
     class ScheduleTask extends TimerTask {
 
+        //TODO
+        // Paddle has serious problems
         public void run() {
-          //  paddle.move();
-            ball.move();
-            //checkCollision();
+            if (ball != null)
+                 ball.move();
+            if(paddle != null)
+                paddle.move();
+            else
+                System.out.println("paddle null fuck");
+            checkCollision();
+
             repaint();
 
         }
