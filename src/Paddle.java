@@ -40,15 +40,14 @@ public class Paddle extends GameKit implements BreakBricksCommons {
     }
 
     public void keyPressed(KeyEvent e) {
-        System.out.println("key pressed paddle");
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            dx = -2;
+            dx = -1;
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            dx = 2;
+            dx = 1;
         }
     }
 
