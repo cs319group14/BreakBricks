@@ -13,7 +13,7 @@ public class Ball extends GameKit implements BreakBricksCommons {
 
     public Ball() throws IOException {
 
-        xDirection = 1;
+        xDirection = 0;
         yDirection = -1;
 
         URL url = new URL(ballImageDirectory);

@@ -183,10 +183,11 @@ public class Board extends JPanel implements BreakBricksCommons {
             int paddleLPos = (int) paddle.getRect().getMinX();
             int ballLPos = (int) ball.getRect().getMinX();
 
-            int first = paddleLPos + 8;
-            int second = paddleLPos + 16;
-            int third = paddleLPos + 24;
-            int fourth = paddleLPos + 32;
+            int first = paddleLPos + 10;
+            int second = paddleLPos + 30;
+            int third = paddleLPos + 45;
+            int fourth = paddleLPos + 65;
+
 
             if (ballLPos < first) {
                 ball.setxDirection(-1);
