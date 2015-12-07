@@ -5,6 +5,8 @@
 public class PowerUp {
 
     int id;
+    int remainingTime;
+    String name;
 
     public PowerUp()
     {
@@ -16,4 +18,6 @@ public class PowerUp {
     {
         return id;
     }
+    public int getRemainingTime() { return remainingTime; }
+    public String getName() { return name; }
 }

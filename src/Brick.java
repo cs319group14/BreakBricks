@@ -8,6 +8,7 @@ public class Brick extends GameKit implements BreakBricksCommons {
     String brickImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_brick.png";
     boolean destroyed;
     PowerUp p;
+    int strength;
 
     public Brick(int x, int y) throws IOException {
         this.x = x;
@@ -32,7 +33,7 @@ public class Brick extends GameKit implements BreakBricksCommons {
         this.destroyed = destroyed;
     }
 
-    public int getPowerUp()
+    public int getPowerUpId()
     {
         return p.getId();
     }

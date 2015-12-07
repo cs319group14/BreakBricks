@@ -284,7 +284,6 @@ public class Board extends JPanel implements BreakBricksCommons {
 
     class ScheduleTask extends TimerTask {
 
-        //TODO
         // Paddle has serious problems
         public void run() {
             if (ball != null)
@@ -292,8 +291,6 @@ public class Board extends JPanel implements BreakBricksCommons {
             if(paddle != null) {
                 paddle.move();
             }
-            else
-                System.out.println("paddle null fuck");
 
             checkCollision();
 
