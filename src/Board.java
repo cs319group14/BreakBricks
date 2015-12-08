@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,6 +19,7 @@ public class Board extends JPanel implements BreakBricksCommons {
     Brick bricks[];
     boolean ingame = true;
     int currentScore;
+    SoundManager sm;
 
     public Board() throws IOException {
         currentScore=0;
@@ -25,6 +28,7 @@ public class Board extends JPanel implements BreakBricksCommons {
         bricks = new Brick[30];
         setDoubleBuffered(true);
         timer = new Timer();
+        sm = new SoundManager();
       //addKeyListener(new TAdapter());
         addMouseListener(new MAdapter());
         setFocusable(true);
@@ -160,7 +164,7 @@ public class Board extends JPanel implements BreakBricksCommons {
                 (BreakBricksCommons.WIDTH - metr.stringWidth(message)) / 2,
                 BreakBricksCommons.WIDTH / 2);
     }
-    public void checkCollision() {
+    public void checkCollision() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         if (ball != null && ball.getRect().getMaxY() > BreakBricksCommons.BOTTOM) {
             stopGame();
@@ -180,6 +184,7 @@ public class Board extends JPanel implements BreakBricksCommons {
 
         if (ball != null && paddle != null && (ball.getRect()).intersects(paddle.getRect())) {
 
+            sm.playSound(0);
             int paddleLPos = (int) paddle.getRect().getMinX();
             int ballLPos = (int) ball.getRect().getMinX();
 
@@ -243,7 +248,7 @@ public class Board extends JPanel implements BreakBricksCommons {
                     } else if (bricks[i].getRect().contains(pointBottom)) {
                         ball.setyDirection(-1);
                     }
-
+                    sm.playSound(1);
                     bricks[i].setDestroyed(true);
                 }
             }
@@ -292,7 +297,15 @@ public class Board extends JPanel implements BreakBricksCommons {
                 paddle.move();
             }
 
-            checkCollision();
+            try {
+                checkCollision();
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
 
             repaint();
 

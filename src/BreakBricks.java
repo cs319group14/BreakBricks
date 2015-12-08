@@ -58,6 +58,19 @@ public class BreakBricks extends JFrame implements ActionListener {
         repaint();
     }
 
+    //toDo
+
+    public int CalculateScore()
+    {
+    return -1;
+    }
+
+    //toDo
+    public void saveScore()
+    {
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == play) {

@@ -12,6 +12,7 @@ public class PowerUp {
     {
         //TODO
         //random generated ID
+
     }
 
     public int getId()
