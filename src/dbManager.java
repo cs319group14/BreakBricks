@@ -53,6 +53,15 @@ public class dbManager {
     public void storeScore(int score) throws IOException {
         //writes score to the txt file
         File f=new File(addres);
+        File file = new File("gameData");
+        
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                System.out.println("Directory is created!");
+            } else {
+                System.out.println("Failed to create directory!");
+            }
+        }
 
         if(!f.exists())
         {
