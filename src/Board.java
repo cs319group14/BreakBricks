@@ -21,7 +21,7 @@ public class Board extends JPanel implements BreakBricksCommons {
     int currentScore;
     SoundManager sm;
 
-    public Board() throws IOException {
+    public Board() throws IOException, UnsupportedAudioFileException {
         currentScore=0;
         paddle = new Paddle();
         ball = new Ball();

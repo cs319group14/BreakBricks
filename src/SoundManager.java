@@ -17,23 +17,24 @@ import java.net.URL;
  */
 public class SoundManager {
 
-    public String bounceSoundAdr="https://raw.githubusercontent.com/cs319group14/BreakBricks/master/sound/ballBounce.wav";
-    public String brickHitSoundAdr="https://raw.githubusercontent.com/cs319group14/BreakBricks/master/sound/brickHit.wav";
+    public String bounceSoundAdr="sound/ballBounce.wav";
+    public String brickHitSoundAdr="sound/brickHit.wav";
     public String pwrUpSoundAdr="";
     public Clip clip;
 
-    public SoundManager(){
-    }
+    public SoundManager() {
 
+        System.out.println("resource: "+getClass().getResource("ballBounce.wav"));
+    }
     public void playSound(int id) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         if(id==0)
         {
-            URL url = new URL(bounceSoundAdr);
             if(clip!=null)
                 if(clip.isActive())
                     clip.stop();
 
-                AudioInputStream sound = AudioSystem.getAudioInputStream(url);
+                File f=new File(bounceSoundAdr);
+                AudioInputStream sound = AudioSystem.getAudioInputStream(f);
                 clip = AudioSystem.getClip();
                 clip.open(sound);
                 clip.start();
@@ -42,19 +43,16 @@ public class SoundManager {
 
         else if(id==1)
         {
+            //URL url = new URL(brickHitSoundAdr);
             if(clip!=null)
                 if(clip.isActive())
                     clip.stop();
 
-            File file = new File(brickHitSoundAdr);
-            if (file.exists()) {
-                AudioInputStream sound = AudioSystem.getAudioInputStream(file);
-                clip = AudioSystem.getClip();
-                clip.open(sound);
-                clip.start();
-            } else
-                System.out.print("Voice file not found.");
-
+            File f=new File(brickHitSoundAdr);
+            AudioInputStream sound = AudioSystem.getAudioInputStream(f);
+            clip = AudioSystem.getClip();
+            clip.open(sound);
+            clip.start();
         }
         else if(id==2)
         {

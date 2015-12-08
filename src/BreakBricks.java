@@ -1,3 +1,4 @@
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ public class BreakBricks extends JFrame implements ActionListener {
     JLabel mLabel;
     JLabel treeButtonLabel;
     Board myB;
+    HighScore hS;
 
     public BreakBricks() {
 
@@ -39,8 +41,6 @@ public class BreakBricks extends JFrame implements ActionListener {
         treeButtonLabel.add(options);
         treeButtonLabel.add(highS);
         mLabel.add(helpButton, BorderLayout.SOUTH);
-
-        //add(new Board());
 
         setTitle("Break Bricks");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -79,6 +79,8 @@ public class BreakBricks extends JFrame implements ActionListener {
                 myB = new Board();
             } catch (IOException e1) {
                 e1.printStackTrace();
+            } catch (UnsupportedAudioFileException e1) {
+                e1.printStackTrace();
             }
             myB.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
             myB.addKeyListener(new ControlAdapter(myB.getPaddle()));
@@ -90,7 +92,21 @@ public class BreakBricks extends JFrame implements ActionListener {
             repaint();
         } else if (e.getSource() == highS) {
             remove(mLabel);
-            add(new HighScore());
+            hS=new HighScore();
+            hS.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
+            hS.backButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    remove(hS);
+                    add(mLabel);
+                    repaint();
+                }
+            });
+            add(hS);
+            hS.setVisible(true);
+            hS.setFocusable(true);
+            hS.requestFocus();
+            hS.repaint();
             repaint();
 
         }
