@@ -5,7 +5,8 @@ import java.net.URL;
 
 public class Brick extends GameKit implements BreakBricksCommons {
 
-    String brickImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_brick.png";
+   // String brickImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_brick.png";
+    String brickImageDirectory = "assets/assets_brick.png";
     boolean destroyed;
     PowerUp p;
     int strength;
@@ -14,8 +15,9 @@ public class Brick extends GameKit implements BreakBricksCommons {
         this.x = x;
         this.y = y;
 
-        URL url = new URL(brickImageDirectory);
-        ImageIcon ii = new ImageIcon(ImageIO.read(url));
+       // URL url = new URL(brickImageDirectory);
+       // ImageIcon ii = new ImageIcon(ImageIO.read(url));
+        ImageIcon ii = new ImageIcon(brickImageDirectory);
         image = ii.getImage();
         width = image.getWidth(null);
         height = image.getHeight(null);

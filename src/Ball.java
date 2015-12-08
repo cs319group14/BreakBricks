@@ -9,15 +9,17 @@ public class Ball extends GameKit implements BreakBricksCommons {
 
     private int xDirection;
     private int yDirection;
-    protected String ballImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/asset_ball.png"; // TODO
+//  protected String ballImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/asset_ball.png";
+    protected String ballImageDirectory = "assets/asset_ball.png";
 
     public Ball() throws IOException {
 
         xDirection = 0;
         yDirection = -1;
 
-        URL url = new URL(ballImageDirectory);
-        ImageIcon ii = new ImageIcon(ImageIO.read(url));
+        //URL url = new URL(ballImageDirectory);
+        //ImageIcon ii = new ImageIcon(ImageIO.read(url));
+        ImageIcon ii = new ImageIcon(ballImageDirectory);
         image = ii.getImage();
 
         width = image.getWidth(null);

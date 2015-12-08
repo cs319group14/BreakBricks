@@ -7,14 +7,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Paddle extends GameKit implements BreakBricksCommons {
-    String paddle = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_paddle.png"; //TODO
+    //String paddle = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/assets_paddle.png";
 
     int dx = 0;
+    String paddle = "assets/assets_paddle.png";
 
     public Paddle() throws IOException {
 
-        URL url = new URL(paddle);
-        ImageIcon ii = new ImageIcon(ImageIO.read(url));
+      //  URL url = new URL(paddle);
+      //  ImageIcon ii = new ImageIcon(ImageIO.read(url));
+        ImageIcon ii = new ImageIcon(paddle);
         image = ii.getImage();
 
         width = image.getWidth(null);
