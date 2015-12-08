@@ -5,5 +5,5 @@ public interface BreakBricksCommons {
     int PADDLE_RIGHT = 380;
     int BALL_RIGHT = 460;
     //TODO
-    dbManager db= new dbManager("");
+    dbManager db= new dbManager("gameData/highScores.txt");
 }

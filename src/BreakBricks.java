@@ -92,16 +92,24 @@ public class BreakBricks extends JFrame implements ActionListener {
             repaint();
         } else if (e.getSource() == highS) {
             remove(mLabel);
-            hS=new HighScore();
-            hS.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
-            hS.backButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    remove(hS);
-                    add(mLabel);
-                    repaint();
+            if(hS==null)
+            {
+                try {
+                    hS=new HighScore();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
-            });
+                hS.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
+                hS.backButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        remove(hS);
+                        add(mLabel);
+                        repaint();
+                    }
+                });
+            }
+
             add(hS);
             hS.setVisible(true);
             hS.setFocusable(true);
