@@ -41,9 +41,9 @@ public class HighScore extends JPanel implements BreakBricksCommons {
         hsLabel.setVisible(true);
 
         this.add(firstLabel);
-        //this.add(secondLabel);
-        //this.add(thirdLabel);
-        //this.add(backButton);
+        this.add(secondLabel);
+        this.add(thirdLabel);
+        this.add(backButton);
 
 
         refreshHS();
