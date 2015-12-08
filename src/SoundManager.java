@@ -1,16 +1,11 @@
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
-import sun.rmi.rmic.Main;
-
 import javax.sound.sampled.*;
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 
 /**
  * Created by Kaan on 08/12/15.
@@ -29,30 +24,25 @@ public class SoundManager {
     public void playSound(int id) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         if(id==0)
         {
-            if(clip!=null)
-                if(clip.isActive())
-                    clip.stop();
-
-                File f=new File(bounceSoundAdr);
-                AudioInputStream sound = AudioSystem.getAudioInputStream(f);
-                clip = AudioSystem.getClip();
-                clip.open(sound);
-                clip.start();
-
+            stop();
+            play(bounceSoundAdr);
+            /*
+            // Alternative
+            try {
+                AudioClip clip = Applet.newAudioClip(
+                        new URL("file://"  +  System.getProperty("user.dir") + "/" + bounceSoundAdr));
+                clip.play();
+            } catch (MalformedURLException murle) {
+                System.out.println(murle);
+                System.out.println(System.getProperty("user.dir") + bounceSoundAdr);
+            }
+            */
         }
-
         else if(id==1)
         {
-            //URL url = new URL(brickHitSoundAdr);
-            if(clip!=null)
-                if(clip.isActive())
-                    clip.stop();
+            stop();
+            play(brickHitSoundAdr);
 
-            File f=new File(brickHitSoundAdr);
-            AudioInputStream sound = AudioSystem.getAudioInputStream(f);
-            clip = AudioSystem.getClip();
-            clip.open(sound);
-            clip.start();
         }
         else if(id==2)
         {
@@ -63,9 +53,19 @@ public class SoundManager {
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
-
-
         }
 
+    }
+    private void play(String directory) throws IOException, UnsupportedAudioFileException, LineUnavailableException{
+        File f=new File(directory);
+        AudioInputStream sound = AudioSystem.getAudioInputStream(f);
+        clip = AudioSystem.getClip();
+        clip.open(sound);
+        clip.start();
+    }
+    private void stop() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        if(clip!=null)
+            if(clip.isActive())
+                clip.stop();
     }
 }
