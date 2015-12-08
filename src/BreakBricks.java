@@ -58,20 +58,20 @@ public class BreakBricks extends JFrame implements ActionListener {
         repaint();
     }
 
-    //toDo
+    //TODO
 
     public int CalculateScore()
     {
     return -1;
     }
 
-    //toDo
+    //TODO
     public void saveScore()
     {
 
     }
 
-    @Override
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == play) {
             remove(mLabel);
@@ -101,7 +101,7 @@ public class BreakBricks extends JFrame implements ActionListener {
                 }
                 hS.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
                 hS.backButton.addActionListener(new ActionListener() {
-                    @Override
+
                     public void actionPerformed(ActionEvent e) {
                         remove(hS);
                         add(mLabel);
