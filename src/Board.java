@@ -1,9 +1,10 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Graphics;
@@ -57,7 +58,17 @@ public class Board extends JPanel implements BreakBricksCommons {
         int k = 0;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 6; j++) {
-                bricks[k] = new Brick(j * 70 + 40, i * 25 + 50);
+                Random rand = new Random();
+                int x = rand.nextInt(3);
+                if (x == 0) {
+                    bricks[k] = new GlassBrick(j * 70 + 15, i * 25 + 50);
+                }
+                else if (x == 1){
+                    bricks[k] = new NormalBrick(j * 70 + 15, i * 25 + 50);
+                }
+                else {
+                    bricks[k] = new SteelBrick(j * 70 + 15, i * 25 + 50);
+                }
                 k++;
             }
         }
@@ -119,15 +130,17 @@ public class Board extends JPanel implements BreakBricksCommons {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
 
-        if (ingame) {
+        ImageIcon ii = new ImageIcon("assets/background.png");
+        Image image = ii.getImage();
 
+        if (ingame) {
+            g2d.drawImage(image,0,0,null);
             drawObjects(g2d);
         } else {
 
@@ -248,7 +261,11 @@ public class Board extends JPanel implements BreakBricksCommons {
                         ball.setyDirection(-1);
                     }
                     sm.playSound(1);
-                    bricks[i].setDestroyed(true);
+                    bricks[i].breakdown();
+                    if(bricks[i].getStrength() == 0){
+                        bricks[i].setDestroyed(true);
+                    }
+
                 }
             }
         }
