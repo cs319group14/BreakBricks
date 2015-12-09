@@ -49,7 +49,7 @@ public class Board extends JPanel implements BreakBricksCommons {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 6);
+        timer.scheduleAtFixedRate(new ScheduleTask(), 1000, 5);
     }
 
     public void gameInit() throws IOException {
