@@ -14,29 +14,19 @@ public class SoundManager {
 
     public String bounceSoundAdr="sound/ballBounce.wav";
     public String brickHitSoundAdr="sound/brickHit.wav";
+    public String glassHitSoundAdr="sound/glassHit.wav";
+    public String steelHitSoundAdr="sound/steelHit.wav";
     public String pwrUpSoundAdr="";
     public Clip clip;
 
     public SoundManager() {
 
-        System.out.println("resource: "+getClass().getResource("ballBounce.wav"));
     }
     public void playSound(int id) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         if(id==0)
         {
             stop();
             play(bounceSoundAdr);
-            /*
-            // Alternative
-            try {
-                AudioClip clip = Applet.newAudioClip(
-                        new URL("file://"  +  System.getProperty("user.dir") + "/" + bounceSoundAdr));
-                clip.play();
-            } catch (MalformedURLException murle) {
-                System.out.println(murle);
-                System.out.println(System.getProperty("user.dir") + bounceSoundAdr);
-            }
-            */
         }
         else if(id==1)
         {
@@ -46,13 +36,13 @@ public class SoundManager {
         }
         else if(id==2)
         {
-            try {
-                InputStream in=new FileInputStream(pwrUpSoundAdr);
-                AudioStream au=new AudioStream(in);
-                AudioPlayer.player.start(au);
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
+            stop();
+            play(glassHitSoundAdr);
+        }
+        else if(id==3)
+        {
+            stop();
+            play(steelHitSoundAdr);
         }
 
     }

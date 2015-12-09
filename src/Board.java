@@ -260,7 +260,14 @@ public class Board extends JPanel implements BreakBricksCommons {
                     } else if (bricks[i].getRect().contains(pointBottom)) {
                         ball.setyDirection(-1);
                     }
-                    sm.playSound(1);
+
+                    if(bricks[i] instanceof NormalBrick)
+                        sm.playSound(1);
+                    else if(bricks[i] instanceof SteelBrick)
+                        sm.playSound(3);
+                    else if(bricks[i] instanceof GlassBrick)
+                        sm.playSound(2);
+
                     bricks[i].breakdown();
                     if(bricks[i].getStrength() == 0){
                         bricks[i].setDestroyed(true);
