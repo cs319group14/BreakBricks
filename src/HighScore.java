@@ -51,13 +51,11 @@ public class HighScore extends JPanel implements BreakBricksCommons {
     }
 
     public void refreshHS() throws IOException {
-        db.storeScore(100);
-        db.storeScore(90);
-        db.storeScore(80);
+
         try{
-            firstLabel.setText((String) db.getAllScores().get(0));
-            secondLabel.setText((String) db.getAllScores().get(1));
-            thirdLabel.setText((String) db.getAllScores().get(2));
+            firstLabel.setText((String) db.getAllScores()[0]);
+            secondLabel.setText((String) db.getAllScores()[1]);
+            thirdLabel.setText((String) db.getAllScores()[2]);
             repaint();
         }catch (NullPointerException e)
         {

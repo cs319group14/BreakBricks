@@ -22,6 +22,7 @@ public class Board extends JPanel implements BreakBricksCommons {
     int currentScore;
     SoundManager sm;
     int powerUpRemaining = 1500;
+    int gameRemeaning = 75000;
     boolean doesPowerUpWork = false;
 
     public Board() throws IOException, UnsupportedAudioFileException {
@@ -146,7 +147,11 @@ public class Board extends JPanel implements BreakBricksCommons {
             drawObjects(g2d);
         } else {
 
-            gameFinished(g2d);
+            try {
+                gameFinished(g2d);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -167,7 +172,7 @@ public class Board extends JPanel implements BreakBricksCommons {
         }
     }
 
-    private void gameFinished(Graphics2D g2d) {
+    private void gameFinished(Graphics2D g2d) throws IOException {
 
         Font font = new Font("Verdana", Font.BOLD, 18);
         FontMetrics metr = this.getFontMetrics(font);
@@ -177,6 +182,8 @@ public class Board extends JPanel implements BreakBricksCommons {
         g2d.drawString(message,
                 (BreakBricksCommons.WIDTH - metr.stringWidth(message)) / 2,
                 BreakBricksCommons.WIDTH / 2);
+
+        db.storeScore(currentScore);
     }
     public void checkCollision() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
@@ -187,11 +194,13 @@ public class Board extends JPanel implements BreakBricksCommons {
         for (int i = 0, j = 0; i < 30; i++) {
             if (bricks[i] != null && bricks[i].isDestroyed()) {
                 j++;
-                currentScore++;
             }
             if (j == 30) {
                 message = "Victory";
-                db.storeScore(currentScore);
+
+                if(75000-gameRemeaning>0)
+                    currentScore=currentScore+75000-gameRemeaning;
+                
                 stopGame();
             }
         }
@@ -280,6 +289,7 @@ public class Board extends JPanel implements BreakBricksCommons {
                         }
                     }
                     if(bricks[i].getStrength() == 0){
+                        currentScore++;
                         bricks[i].setDestroyed(true);
                     }
 
@@ -339,6 +349,9 @@ public class Board extends JPanel implements BreakBricksCommons {
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
+
+            if(ingame)
+                gameRemeaning--;
 
             if (doesPowerUpWork){
                 powerUpRemaining--;
