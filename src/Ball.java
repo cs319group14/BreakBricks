@@ -1,3 +1,5 @@
+import sun.jvm.hotspot.jdi.IntegerTypeImpl;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.*;
@@ -11,6 +13,7 @@ public class Ball extends GameKit implements BreakBricksCommons {
     private int yDirection;
 //  protected String ballImageDirectory = "https://raw.githubusercontent.com/cs319group14/BreakBricks/master/assets/asset_ball.png";
     protected String ballImageDirectory = "assets/asset_ball.png";
+    private int appliedPowerUpId = Integer.MAX_VALUE;
 
     public Ball() throws IOException {
 
@@ -64,4 +67,24 @@ public class Ball extends GameKit implements BreakBricksCommons {
     {
         return yDirection;
     }
+
+    public boolean applyPowerUp(int powerUpId) {
+
+        appliedPowerUpId = powerUpId;
+        if (powerUpId == 0) {
+            setImage("assets/fireball.png");
+            return true;
+        }
+        return false;
+    }
+
+    public void cancelPowerUp() {
+
+        if (appliedPowerUpId == 0){
+            setImage(ballImageDirectory);
+        }
+        appliedPowerUpId = Integer.MAX_VALUE;
+    }
+
+
 }

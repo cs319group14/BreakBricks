@@ -11,12 +11,16 @@ public class SteelBrick extends Brick {
     }
     public void breakdown(){
         if (strength > 0) {
-            strength--;
-            if (strength == 2){
-                setImage("assets/steel_brick_damaged_1.png");
+            if (appliedPowerUpId == 0){
+                strength = 0;
             }
-            else if (strength == 1) {
-                setImage("assets/steel_brick_damaged_2.png");
+            else {
+                strength--;
+                if (strength == 2) {
+                    setImage("assets/steel_brick_damaged_1.png");
+                } else if (strength == 1) {
+                    setImage("assets/steel_brick_damaged_2.png");
+                }
             }
 
         }

@@ -7,12 +7,15 @@ public class PowerUp {
     int id;
     int remainingTime;
     String name;
+    String names[] = {"FIREBALL"};
 
-    public PowerUp()
+    public PowerUp(int id)
     {
-        //TODO
-        //random generated ID
-
+        this.id = id;
+        if (id < names.length)
+            name = names[id];
+        else
+            name = "None";
     }
 
     public int getId()

@@ -21,6 +21,8 @@ public class Board extends JPanel implements BreakBricksCommons {
     boolean ingame = true;
     int currentScore;
     SoundManager sm;
+    int powerUpRemaining = 1500;
+    boolean doesPowerUpWork = false;
 
     public Board() throws IOException, UnsupportedAudioFileException {
         currentScore=0;
@@ -269,6 +271,14 @@ public class Board extends JPanel implements BreakBricksCommons {
                         sm.playSound(2);
 
                     bricks[i].breakdown();
+                    if (!doesPowerUpWork) {
+                        doesPowerUpWork = ball.applyPowerUp(bricks[i].getPowerUpId());
+                        if (doesPowerUpWork){
+                            for (int k = 0; k < 30; k++){
+                                bricks[k].applyPowerUp(bricks[i].getPowerUpId());
+                            }
+                        }
+                    }
                     if(bricks[i].getStrength() == 0){
                         bricks[i].setDestroyed(true);
                     }
@@ -330,8 +340,18 @@ public class Board extends JPanel implements BreakBricksCommons {
                 e.printStackTrace();
             }
 
+            if (doesPowerUpWork){
+                powerUpRemaining--;
+                if (powerUpRemaining == 0){
+                    ball.cancelPowerUp();
+                    for (int k = 0; k < 30; k++){
+                        bricks[k].cancelPowerUp();
+                    }
+                    powerUpRemaining = 1500;
+                    doesPowerUpWork = false;
+                }
+            }
             repaint();
-
         }
     }
     //**********************************************************

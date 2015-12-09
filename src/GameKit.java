@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.Image;
 import java.awt.Rectangle;
 
@@ -39,5 +40,10 @@ public class GameKit {
 
     Rectangle getRect() {
         return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
+    }
+
+    public void setImage(String textureDirectory) {
+        ImageIcon ii = new ImageIcon(textureDirectory);
+        image = ii.getImage();
     }
 }

@@ -11,9 +11,13 @@ public class NormalBrick extends Brick {
     }
     public void breakdown(){
         if (strength > 0) {
-            strength--;
-            if (strength == 1){
-                setImage("assets/normal_brick_damaged.png");
+            if (appliedPowerUpId == 0)
+                strength = 0;
+            else {
+                strength--;
+                if (strength == 1) {
+                    setImage("assets/normal_brick_damaged.png");
+                }
             }
         }
     }
