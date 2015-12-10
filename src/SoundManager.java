@@ -17,7 +17,9 @@ public class SoundManager {
     public String glassHitSoundAdr="sound/glassHit.wav";
     public String steelHitSoundAdr="sound/steelHit.wav";
     public String fireballPwrUpAdr="sound/fireballPwrUp.wav";
+    public String pwrUpSoundAdr="";
     public Clip clip;
+    public Clip clip2;
 
     public SoundManager() {
 
@@ -48,6 +50,15 @@ public class SoundManager {
         {
             play(fireballPwrUpAdr);
 
+            if(clip!=null)
+            if(!clip.isActive())
+            {
+                File f=new File("sound/fireBall.wav");
+                AudioInputStream sound = AudioSystem.getAudioInputStream(f);
+                clip2 = AudioSystem.getClip();
+                clip2.open(sound);
+                clip2.start();
+            }
         }
 
     }
