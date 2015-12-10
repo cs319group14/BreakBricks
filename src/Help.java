@@ -31,8 +31,8 @@ public class Help extends JPanel{
         backButton.setLocation(5,520);
         backButton.setVisible(true);
 
-        infoLabel = new JLabel("<html> In this game, each brick counts as 1 point, <br> also finish time gives you bonuses. If you lose,<br> there wont be time bonus.</html>",SwingConstants.CENTER);
-        infoLabel.setSize(new Dimension(300, 100));
+        infoLabel = new JLabel("<html>-In this game, each brick counts as 1 point,  also <br>elapsed time gives you bonuses.If you lose,<br> there wont be time bonus.<br> -FireBall: Makes you to 1 hit all types of bricks.</html>",SwingConstants.CENTER);
+        infoLabel.setSize(new Dimension(350, 300));
         infoLabel.setVisible(true);
 
         rightButton = new JLabel();
@@ -65,6 +65,6 @@ public class Help extends JPanel{
         ImageIcon ii = new ImageIcon("assets/keyboardKeys.png");
         Image im = ii.getImage();
 
-        g.drawImage(im,100,200,ii.getIconWidth()/2,ii.getIconHeight()/2,null);
+        g.drawImage(im,100,300,ii.getIconWidth()/2,ii.getIconHeight()/2,null);
     }
 }
