@@ -16,6 +16,7 @@ public class BreakBricks extends JFrame implements ActionListener {
     Board myB;
     HighScore hS;
     Options op;
+    Help help;
 
     public BreakBricks() {
 
@@ -103,8 +104,7 @@ public class BreakBricks extends JFrame implements ActionListener {
             repaint();
         } else if (e.getSource() == highS) {
             remove(mLabel);
-            if(hS==null)
-            {
+
                 try {
                     hS=new HighScore();
                 } catch (IOException e1) {
@@ -119,7 +119,6 @@ public class BreakBricks extends JFrame implements ActionListener {
                         repaint();
                     }
                 });
-            }
 
             add(hS);
             hS.setVisible(true);
@@ -150,6 +149,34 @@ public class BreakBricks extends JFrame implements ActionListener {
             op.setFocusable(true);
             op.requestFocus();
             op.repaint();
+            repaint();
+
+        }else if(e.getSource()==helpButton)
+        {
+            remove(mLabel);
+            if(help==null)
+            {
+                try {
+                    help=new Help();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                help.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
+                help.backButton.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e) {
+                        remove(help);
+                        add(mLabel);
+                        repaint();
+                    }
+                });
+            }
+
+            add(help);
+            help.setVisible(true);
+            help.setFocusable(true);
+            help.requestFocus();
+            help.repaint();
             repaint();
 
         }

@@ -23,7 +23,6 @@ public class HighScore extends JPanel implements BreakBricksCommons {
             }
         });
 
-
         firstLabel = new JLabel("-");
         secondLabel = new JLabel("-");
         thirdLabel = new JLabel("-");
