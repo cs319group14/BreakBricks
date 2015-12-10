@@ -15,6 +15,7 @@ public class BreakBricks extends JFrame implements ActionListener {
     JLabel treeButtonLabel;
     Board myB;
     HighScore hS;
+    Options op;
 
     public BreakBricks() {
 
@@ -85,6 +86,16 @@ public class BreakBricks extends JFrame implements ActionListener {
             myB.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
             myB.addKeyListener(new ControlAdapter(myB.getPaddle()));
             add(myB);
+            myB.jb.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    remove(myB);
+                    add(mLabel);
+                    repaint();
+
+                }
+            });
+
             myB.setVisible(true);
             myB.setFocusable(true);
             myB.requestFocus();
@@ -115,6 +126,30 @@ public class BreakBricks extends JFrame implements ActionListener {
             hS.setFocusable(true);
             hS.requestFocus();
             hS.repaint();
+            repaint();
+
+        }else if(e.getSource()==options)
+        {
+            remove(mLabel);
+            if(op==null)
+            {
+                op=new Options();
+                op.setSize(BreakBricksCommons.WIDTH, BreakBricksCommons.HEIGTH);
+                op.backButton.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e) {
+                        remove(op);
+                        add(mLabel);
+                        repaint();
+                    }
+                });
+            }
+
+            add(op);
+            op.setVisible(true);
+            op.setFocusable(true);
+            op.requestFocus();
+            op.repaint();
             repaint();
 
         }

@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by Kaan on 28/10/15.
@@ -15,9 +17,9 @@ public class dbManager {
 
     }
 
-    public String[] getAllScores() throws IOException {
+    public ArrayList<Integer> getAllScores() throws IOException {
 
-        String[] arr= new String[3];
+        ArrayList<Integer> arr= new ArrayList();
 
         File f = new File(addres);
         if(f.exists())
@@ -27,102 +29,74 @@ public class dbManager {
 
             String myLine;
 
-            for(int i=0;i<3;i++)
+            while((myLine=bufRead.readLine())!=null)
             {
-                arr[i]=null;
+                arr.add(Integer.parseInt(myLine));
+            }
+            Collections.sort(arr);
+
+            for(int i=0;i<arr.size();i++)
+            {
+                System.out.println("sorted array: "+arr.get(i));
             }
 
-            for(int i=0;(myLine = bufRead.readLine()) != null ; i++)
-            {
-                if(i>2)
-                    break;
-
-                arr[i]=myLine;
-            }
-
-            bufRead.close();
-            input.close();
             return arr;
         }
         else
         {
-            System.out.println("File: " + addres + " not found, creating a new one.");
             f.createNewFile();
-            return null;
+            storeScore(0);
         }
-        //return null;
+        return null;
     }
 
     public void storeScore(int score) throws IOException {
         //writes score to the txt file
+        System.out.println("score: "+score);
         File f=new File(addres);
         File file = new File("gameData");
 
         if (!file.exists()) {
             if (file.mkdir()) {
                 System.out.println("Directory is created!");
+
+                FileWriter input = new FileWriter(f.getAbsolutePath());
+                input = new FileWriter(f.getAbsolutePath(),true);
+                BufferedWriter bufWrite = new BufferedWriter(input);
+                bufWrite.write(""+score);
+                bufWrite.newLine();
+                bufWrite.write(""+0);
+                bufWrite.newLine();
+                bufWrite.write(""+0);
+                bufWrite.newLine();
+                bufWrite.close();
+                input.close();
+
             } else {
                 System.out.println("Failed to create directory!");
             }
         }
-
-        if(!f.exists())
-        {
-            f.createNewFile();
-            System.out.println("File: " + addres + " not found, creating a new one.");
-
-            FileWriter input = new FileWriter(f.getAbsolutePath());
-            BufferedWriter bufWrite = new BufferedWriter(input);
-            bufWrite.write(score+"");
-            bufWrite.close();
-            input.close();
-        }
         else
         {
-            String[] arr=getAllScores();
-            String[] arrW= new String[3];
+            ArrayList<Integer> arr1= getAllScores();
+            arr1.add(score);
 
-            boolean added=false;
-
-            for(int i=0,w=0;i<3;i++)
+            while(arr1.size()<3)
             {
-                if(arr[i]!=null)
-                {
-                    System.out.println("-------------"+arr[w]);
-                    if(Integer.parseInt(arr[w])>score||added)
-                    {
-                        arrW[i]=arr[w];
-                        w++;
-                    }
-                    else
-                    {
-                        added=true;
-                        arrW[i]=score+"";
-                    }
-                }
-                else if(added)
-                {
-                    arrW[i]=arr[w];
-                    w++;
-                }
-                else if(!added)
-                {
-                    arrW[i]=score+"";
-                    added=true;
-                }
+                arr1.add(0);
+                System.out.print("Filling 0's.");
             }
 
-            for(int i=0;i<3;i++)
-                System.out.println("High scores: "+arrW[i]);
+            Collections.sort(arr1);
 
             FileWriter input = new FileWriter(f.getAbsolutePath());
             BufferedWriter bufWrite = new BufferedWriter(input);
-            bufWrite.write(arrW[0]);
+            bufWrite.write(""+arr1.get(arr1.size()-1));
             bufWrite.newLine();
             input = new FileWriter(f.getAbsolutePath(),true);
-            bufWrite.write(arrW[1]);
+            bufWrite.write(""+arr1.get(arr1.size()-2));
             bufWrite.newLine();
-            bufWrite.write(arrW[2]);
+            bufWrite.write(""+arr1.get(arr1.size()-3));
             bufWrite.newLine();
             bufWrite.close();
             input.close();

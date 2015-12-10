@@ -12,6 +12,10 @@ import java.awt.Graphics;
 
 public class Board extends JPanel implements BreakBricksCommons {
 
+    String scoreTxt="Current Score= ";
+    String timeBonusTxt="  Time bonus: ";
+
+    JLabel scoreLabel;
     Timer timer;
     boolean paused=false;
     String message = "Game Over";
@@ -24,8 +28,16 @@ public class Board extends JPanel implements BreakBricksCommons {
     int powerUpRemaining = 1500;
     int gameRemeaning = 75000;
     boolean doesPowerUpWork = false;
+    public JButton jb;
 
     public Board() throws IOException, UnsupportedAudioFileException {
+        scoreLabel= new JLabel();
+        this.add(scoreLabel);
+        scoreLabel.setVisible(false);
+        jb=new JButton("Back");
+        jb.setSize(new Dimension(500,150));
+        this.add(jb);
+        jb.setVisible(false);
         currentScore=0;
         paddle = new Paddle();
         ball = new Ball();
@@ -79,6 +91,24 @@ public class Board extends JPanel implements BreakBricksCommons {
 
     public void stopGame() {
         ingame = false;
+
+        jb.setVisible(true);
+
+        int bonus=0;
+        if(message=="Victory")
+            bonus=gameRemeaning;
+
+        scoreLabel.setText(scoreTxt+currentScore+timeBonusTxt+bonus);
+        scoreLabel.setVisible(true);
+        scoreLabel.repaint();
+
+        try {
+            db.storeScore(currentScore);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         timer.cancel();
     }
 
@@ -130,7 +160,6 @@ public class Board extends JPanel implements BreakBricksCommons {
 */
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -172,18 +201,17 @@ public class Board extends JPanel implements BreakBricksCommons {
         }
     }
 
+
     private void gameFinished(Graphics2D g2d) throws IOException {
 
         Font font = new Font("Verdana", Font.BOLD, 18);
         FontMetrics metr = this.getFontMetrics(font);
-
         g2d.setColor(Color.BLACK);
         g2d.setFont(font);
         g2d.drawString(message,
                 (BreakBricksCommons.WIDTH - metr.stringWidth(message)) / 2,
                 BreakBricksCommons.WIDTH / 2);
 
-        db.storeScore(currentScore);
     }
     public void checkCollision() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
@@ -197,10 +225,7 @@ public class Board extends JPanel implements BreakBricksCommons {
             }
             if (j == 30) {
                 message = "Victory";
-
-                if(75000-gameRemeaning>0)
-                    currentScore=currentScore+75000-gameRemeaning;
-                
+                    currentScore=currentScore+gameRemeaning;
                 stopGame();
             }
         }
@@ -283,6 +308,7 @@ public class Board extends JPanel implements BreakBricksCommons {
                     if (!doesPowerUpWork) {
                         doesPowerUpWork = ball.applyPowerUp(bricks[i].getPowerUpId());
                         if (doesPowerUpWork){
+                            sm.playSound(4);
                             for (int k = 0; k < 30; k++){
                                 bricks[k].applyPowerUp(bricks[i].getPowerUpId());
                             }
@@ -351,8 +377,12 @@ public class Board extends JPanel implements BreakBricksCommons {
             }
 
             if(ingame)
-                gameRemeaning--;
-
+                if(gameRemeaning>0)
+                    gameRemeaning--;
+            else
+            {
+                timer.cancel();
+            }
             if (doesPowerUpWork){
                 powerUpRemaining--;
                 if (powerUpRemaining == 0){

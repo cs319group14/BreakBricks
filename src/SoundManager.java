@@ -16,6 +16,7 @@ public class SoundManager {
     public String brickHitSoundAdr="sound/brickHit.wav";
     public String glassHitSoundAdr="sound/glassHit.wav";
     public String steelHitSoundAdr="sound/steelHit.wav";
+    public String fireballPwrUpAdr="sound/fireballPwrUp.wav";
     public String pwrUpSoundAdr="";
     public Clip clip;
 
@@ -43,6 +44,10 @@ public class SoundManager {
         {
             stop();
             play(steelHitSoundAdr);
+        }
+        else if(id==4)
+        {
+            play(fireballPwrUpAdr);
         }
 
     }
